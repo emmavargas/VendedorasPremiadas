@@ -91,8 +91,9 @@ public class Supermercado {
         {
             if(resultado[0]==1)
             {
+                int vendedoraGanadora = resultado[1]+1;
                 String line2 = resultado[2] +" " +vendedoras.get(resultado[1]).getMontoTotalVentasConsecutivas(resultado[2]);
-                out.write(resultado[1]);
+                out.write(vendedoraGanadora +"\n");
                 out.write(line2);
             } else if (resultado[0]==0) {
                 out.write("No hay ganadores");
