@@ -1,0 +1,5 @@
+        for (Vendedora e: vendedoras) {
+            System.out.println(e.getCantidadVentas());
+            e.getMontoVentas().forEach(num -> System.out.println(num));
+            System.out.println();
+        }
