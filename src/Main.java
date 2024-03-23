@@ -4,6 +4,6 @@ public class Main {
     public static void main(String[] args) throws IOException {
         Supermercado supermercado = new Supermercado();
         supermercado.cargarDatos();
-        supermercado.resultado();
+        supermercado.mostrarResultados(supermercado.resultado());
     }
 }

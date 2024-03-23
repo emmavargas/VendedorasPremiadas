@@ -1,6 +1,4 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.util.LinkedList;
 
 public class Supermercado {
@@ -41,12 +39,14 @@ public class Supermercado {
         }
     }
 
-    public void resultado()
+    public int[] resultado()
     {
+        int resultado[]=new int[3];
         int opcionGanador=0;
         int valorConsecutivoMod = this.ventasConsecutivas;
         int valorGanador=0;
         int indiceGanador=0;
+        int valorConsecutivoGanador=0;
         int finValidacion=0;
 
         while(opcionGanador!=1 && finValidacion!=this.cantidadVendedoras)
@@ -60,12 +60,9 @@ public class Supermercado {
                         valorGanador = vendedora.getMontoTotalVentasConsecutivas(valorConsecutivoMod);
                         indiceGanador = vendedoras.indexOf(vendedora);
                         opcionGanador = 1;
-                        //System.out.println(valorGanador);
-                        //System.out.println(indiceGanador);
+                        valorConsecutivoGanador = valorConsecutivoMod;
                     } else if (vendedora.getMontoTotalVentasConsecutivas(valorConsecutivoMod) == valorGanador) {
                         opcionGanador++;
-                        //System.out.println(valorGanador);
-                        //System.out.println(indiceGanador);
                     }
 
                 }
@@ -78,12 +75,31 @@ public class Supermercado {
 
         if(opcionGanador==1)
         {
-            System.out.println(indiceGanador);
+            resultado = new int[]{opcionGanador,indiceGanador, valorConsecutivoGanador};
         } else if (opcionGanador==0) {
-            System.out.println("No hay ganadores");
+            resultado = new int[]{opcionGanador,0, 0};
         }
         else {
-            System.out.println("No se puede desempatar");
+            resultado= new int[]{opcionGanador,0,0};
+        }
+        return resultado;
+    }
+
+    public void mostrarResultados(int[] resultado) throws IOException
+    {
+        try(BufferedWriter out = new BufferedWriter(new FileWriter("src/Output.txt")))
+        {
+            if(resultado[0]==1)
+            {
+                String line2 = resultado[2] +" " +vendedoras.get(resultado[1]).getMontoTotalVentasConsecutivas(resultado[2]);
+                out.write(resultado[1]);
+                out.write(line2);
+            } else if (resultado[0]==0) {
+                out.write("No hay ganadores");
+            }
+            else {
+                out.write("No se puede desempatar");
+            }
         }
     }
 
